@@ -14,7 +14,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
-  <button class="theme-toggle no-print" id="themeToggle">Modo oscuro</button>
+  <button class="theme-toggle no-print" id="themeToggle" title="Alternar modo oscuro">&#9680;</button>
   <button class="print-button no-print" onclick="window.print()">Descargar / imprimir PDF</button>
   <main class="document">
     <section class="cover">
@@ -420,37 +420,86 @@
   <script>
     const toggle = document.getElementById('themeToggle');
     const root = document.documentElement;
-    const saved = localStorage.getItem('theme');
-    if (saved === 'dark') { root.setAttribute('data-theme', 'dark'); toggle.textContent = 'Modo claro'; }
-    toggle.addEventListener('click', () => {
-      const isDark = root.getAttribute('data-theme') === 'dark';
-      root.setAttribute('data-theme', isDark ? 'light' : 'dark');
-      toggle.textContent = isDark ? 'Modo oscuro' : 'Modo claro';
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
-    });
 
-    // Forzar carga de imágenes lazy antes de imprimir
-    function loadAllImages() {
-      return Promise.all(
-        Array.from(document.querySelectorAll('img')).map(img => {
-          img.loading = 'eager';
-          if (img.complete) return Promise.resolve();
-          return new Promise(resolve => {
-            img.addEventListener('load', resolve, { once: true });
-            img.addEventListener('error', resolve, { once: true });
-          });
-        })
-      );
+    // ── Tema ──
+    function applyTheme(dark) {
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      toggle.innerHTML = dark ? '&#9728;' : '&#9680;';
+      toggle.title = dark ? 'Modo claro' : 'Modo oscuro';
+      localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    applyTheme(localStorage.getItem('theme') === 'dark');
+
+    // ── Arrastre ──
+    let dragging = false, hasMoved = false;
+    let startX, startY, startLeft, startTop;
+
+    function pointerDown(e) {
+      const pt = e.touches ? e.touches[0] : e;
+      const rect = toggle.getBoundingClientRect();
+      startLeft = rect.left;
+      startTop  = rect.top;
+      startX = pt.clientX;
+      startY = pt.clientY;
+      dragging = true;
+      hasMoved = false;
+      document.addEventListener('mousemove', pointerMove);
+      document.addEventListener('touchmove', pointerMove, { passive: false });
+      document.addEventListener('mouseup',   pointerUp);
+      document.addEventListener('touchend',  pointerUp);
     }
 
-    window.addEventListener('beforeprint', () => { loadAllImages(); });
+    function pointerMove(e) {
+      if (!dragging) return;
+      if (e.cancelable) e.preventDefault();
+      const pt = e.touches ? e.touches[0] : e;
+      const dx = pt.clientX - startX;
+      const dy = pt.clientY - startY;
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) hasMoved = true;
+      const maxL = window.innerWidth  - toggle.offsetWidth;
+      const maxT = window.innerHeight - toggle.offsetHeight;
+      const newL = Math.max(0, Math.min(maxL, startLeft + dx));
+      const newT = Math.max(0, Math.min(maxT, startTop  + dy));
+      toggle.style.left   = newL + 'px';
+      toggle.style.top    = newT + 'px';
+      toggle.style.right  = 'auto';
+      toggle.style.bottom = 'auto';
+    }
 
-    // Para navegadores que usan window.print() vía botón
+    function pointerUp() {
+      dragging = false;
+      document.removeEventListener('mousemove', pointerMove);
+      document.removeEventListener('touchmove', pointerMove);
+      document.removeEventListener('mouseup',   pointerUp);
+      document.removeEventListener('touchend',  pointerUp);
+      if (hasMoved) {
+        localStorage.setItem('togglePos', JSON.stringify({ left: toggle.style.left, top: toggle.style.top }));
+      } else {
+        applyTheme(root.getAttribute('data-theme') !== 'dark');
+      }
+    }
+
+    toggle.addEventListener('mousedown',  pointerDown);
+    toggle.addEventListener('touchstart', pointerDown, { passive: true });
+
+    // Restaurar posición guardada
+    const savedPos = localStorage.getItem('togglePos');
+    if (savedPos) {
+      const p = JSON.parse(savedPos);
+      toggle.style.left   = p.left;
+      toggle.style.top    = p.top;
+      toggle.style.right  = 'auto';
+      toggle.style.bottom = 'auto';
+    }
+
+    // ── Imprimir ──
     const printBtn = document.querySelector('.print-button');
     if (printBtn) {
       printBtn.addEventListener('click', async e => {
         e.preventDefault();
-        await loadAllImages();
+        await Promise.all(Array.from(document.querySelectorAll('img')).map(img =>
+          img.complete ? Promise.resolve() : new Promise(r => { img.onload = r; img.onerror = r; })
+        ));
         window.print();
       });
     }
