@@ -419,68 +419,52 @@
   </main>
   <script>
     const toggle = document.getElementById('themeToggle');
-    const root = document.documentElement;
+    const root   = document.documentElement;
 
     // ── Tema ──
     function applyTheme(dark) {
       root.setAttribute('data-theme', dark ? 'dark' : 'light');
       toggle.innerHTML = dark ? '&#9728;' : '&#9680;';
-      toggle.title = dark ? 'Modo claro' : 'Modo oscuro';
+      toggle.title     = dark ? 'Modo claro' : 'Modo oscuro';
       localStorage.setItem('theme', dark ? 'dark' : 'light');
     }
     applyTheme(localStorage.getItem('theme') === 'dark');
 
-    // ── Arrastre ──
-    let dragging = false, hasMoved = false;
+    // ── Arrastre con Pointer Events (mouse + touch unificado) ──
+    let hasMoved = false;
     let startX, startY, startLeft, startTop;
 
-    function pointerDown(e) {
-      const pt = e.touches ? e.touches[0] : e;
+    toggle.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      toggle.setPointerCapture(e.pointerId);
       const rect = toggle.getBoundingClientRect();
       startLeft = rect.left;
       startTop  = rect.top;
-      startX = pt.clientX;
-      startY = pt.clientY;
-      dragging = true;
-      hasMoved = false;
-      document.addEventListener('mousemove', pointerMove);
-      document.addEventListener('touchmove', pointerMove, { passive: false });
-      document.addEventListener('mouseup',   pointerUp);
-      document.addEventListener('touchend',  pointerUp);
-    }
+      startX    = e.clientX;
+      startY    = e.clientY;
+      hasMoved  = false;
+    });
 
-    function pointerMove(e) {
-      if (!dragging) return;
-      if (e.cancelable) e.preventDefault();
-      const pt = e.touches ? e.touches[0] : e;
-      const dx = pt.clientX - startX;
-      const dy = pt.clientY - startY;
-      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) hasMoved = true;
+    toggle.addEventListener('pointermove', e => {
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) < 5 && Math.abs(dy) < 5) return;
+      hasMoved = true;
       const maxL = window.innerWidth  - toggle.offsetWidth;
       const maxT = window.innerHeight - toggle.offsetHeight;
-      const newL = Math.max(0, Math.min(maxL, startLeft + dx));
-      const newT = Math.max(0, Math.min(maxT, startTop  + dy));
-      toggle.style.left   = newL + 'px';
-      toggle.style.top    = newT + 'px';
+      toggle.style.left   = Math.max(0, Math.min(maxL, startLeft + dx)) + 'px';
+      toggle.style.top    = Math.max(0, Math.min(maxT, startTop  + dy)) + 'px';
       toggle.style.right  = 'auto';
       toggle.style.bottom = 'auto';
-    }
+    });
 
-    function pointerUp() {
-      dragging = false;
-      document.removeEventListener('mousemove', pointerMove);
-      document.removeEventListener('touchmove', pointerMove);
-      document.removeEventListener('mouseup',   pointerUp);
-      document.removeEventListener('touchend',  pointerUp);
-      if (hasMoved) {
-        localStorage.setItem('togglePos', JSON.stringify({ left: toggle.style.left, top: toggle.style.top }));
-      } else {
+    toggle.addEventListener('pointerup', () => {
+      if (!hasMoved) {
         applyTheme(root.getAttribute('data-theme') !== 'dark');
+      } else {
+        localStorage.setItem('togglePos', JSON.stringify({ left: toggle.style.left, top: toggle.style.top }));
       }
-    }
-
-    toggle.addEventListener('mousedown',  pointerDown);
-    toggle.addEventListener('touchstart', pointerDown, { passive: true });
+    });
 
     // Restaurar posición guardada
     const savedPos = localStorage.getItem('togglePos');
