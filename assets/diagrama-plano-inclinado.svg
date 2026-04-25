@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" role="img" aria-label="Diagrama tecnico de plano inclinado">
+  <rect width="900" height="460" fill="#fbfdff"/>
+  <line x1="120" y1="360" x2="790" y2="360" stroke="#7d99a8" stroke-width="6"/>
+  <polygon points="165,335 720,120 720,335" fill="#e5f7fb" stroke="#0f6fb2" stroke-width="5"/>
+  <line x1="165" y1="335" x2="720" y2="120" stroke="#f28c28" stroke-width="10"/>
+  <circle cx="335" cy="255" r="34" fill="#0fb7a5" stroke="#087e72" stroke-width="5"/>
+  <path d="M380 245 C450 220 512 195 585 165" fill="none" stroke="#f28c28" stroke-width="5" marker-end="url(#arrow)"/>
+  <line x1="720" y1="120" x2="720" y2="335" stroke="#0f9f80" stroke-width="5" stroke-dasharray="10 8"/>
+  <line x1="165" y1="335" x2="720" y2="335" stroke="#5d6b78" stroke-width="3" stroke-dasharray="8 8"/>
+  <path d="M215 335 A70 70 0 0 1 280 309" fill="none" stroke="#0f6fb2" stroke-width="4"/>
+  <text x="735" y="235" font-family="Segoe UI, Arial" font-size="28" font-weight="700" fill="#0f9f80">altura h</text>
+  <text x="405" y="170" font-family="Segoe UI, Arial" font-size="28" font-weight="700" fill="#f28c28">distancia d</text>
+  <text x="248" y="328" font-family="Segoe UI, Arial" font-size="26" font-weight="700" fill="#0f6fb2">angulo θ</text>
+  <text x="625" y="100" font-family="Segoe UI, Arial" font-size="24" fill="#1b2733">posicion inicial</text>
+  <text x="130" y="395" font-family="Segoe UI, Arial" font-size="24" fill="#1b2733">posicion final</text>
+  <text x="285" y="245" font-family="Segoe UI, Arial" font-size="22" font-weight="700" fill="#ffffff">m</text>
+  <text x="500" y="230" font-family="Segoe UI, Arial" font-size="22" fill="#1b2733">direccion del movimiento</text>
+  <text x="470" y="398" font-family="Segoe UI, Arial" font-size="22" fill="#5d6b78">superficie de contacto</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f28c28"/>
+    </marker>
+  </defs>
+</svg>

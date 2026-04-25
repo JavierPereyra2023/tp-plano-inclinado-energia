@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="Mockup de Google Sheets">
+  <rect width="900" height="520" fill="#f7fbfd"/>
+  <rect x="50" y="45" width="800" height="420" rx="10" fill="#ffffff" stroke="#cfdde5"/>
+  <rect x="50" y="45" width="800" height="56" rx="10" fill="#e8f6ef"/>
+  <text x="78" y="82" font-family="Segoe UI, Arial" font-size="22" font-weight="800" fill="#0f9f80">Planilla experimental - energia en plano inclinado</text>
+  <g font-family="Segoe UI, Arial" font-size="13">
+    <rect x="70" y="125" width="760" height="42" fill="#dff3f8"/>
+    <g fill="#0c4d78" font-weight="700">
+      <text x="78" y="150">Pelotita</text><text x="155" y="150">Superficie</text><text x="245" y="150">Masa</text><text x="305" y="150">Altura</text><text x="365" y="150">Dist.</text><text x="425" y="150">t prom.</text><text x="500" y="150">v media</text><text x="585" y="150">Ec</text><text x="635" y="150">Ep</text><text x="682" y="150">Emi</text><text x="730" y="150">Emf</text><text x="778" y="150">% perdida</text>
+    </g>
+    <g stroke="#cfdde5">
+      <line x1="70" y1="167" x2="830" y2="167"/><line x1="70" y1="209" x2="830" y2="209"/><line x1="70" y1="251" x2="830" y2="251"/><line x1="70" y1="293" x2="830" y2="293"/><line x1="70" y1="335" x2="830" y2="335"/>
+    </g>
+    <g fill="#1b2733">
+      <text x="78" y="193">Vidrio</text><text x="155" y="193">Carton</text><text x="245" y="193">0.018</text><text x="305" y="193">0.35</text><text x="365" y="193">1.20</text><text x="425" y="193">1.24</text><text x="500" y="193">=E2/F2</text><text x="585" y="193">...</text><text x="635" y="193">...</text><text x="682" y="193">...</text><text x="730" y="193">...</text><text x="778" y="193">...</text>
+      <text x="78" y="235">Goma</text><text x="155" y="235">Tela</text><text x="245" y="235">0.045</text><text x="305" y="235">0.35</text><text x="365" y="235">1.20</text><text x="425" y="235">1.43</text>
+      <text x="78" y="277">Telgopor</text><text x="155" y="277">Lija</text><text x="245" y="277">0.006</text><text x="305" y="277">0.35</text><text x="365" y="277">1.20</text><text x="425" y="277">1.78</text>
+    </g>
+  </g>
+  <rect x="70" y="370" width="250" height="54" rx="6" fill="#fff7ea" stroke="#f28c28"/>
+  <text x="88" y="402" font-family="Segoe UI, Arial" font-size="17" font-weight="700" fill="#9a5b10">Formulas listas para copiar</text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-label="Comparacion de superficies de rozamiento">
+  <rect width="900" height="520" fill="#ffffff"/>
+  <text x="60" y="55" font-family="Segoe UI, Arial" font-size="32" font-weight="800" fill="#0f6fb2">Comparacion de superficies</text>
+  <g transform="translate(70 90)">
+    <rect width="220" height="320" rx="8" fill="#eef8fb" stroke="#c7e5ef"/>
+    <text x="24" y="42" font-family="Segoe UI, Arial" font-size="24" font-weight="700" fill="#0f9f80">Carton liso</text>
+    <polygon points="25,235 190,120 205,150 42,265" fill="#f7c36a"/>
+    <circle cx="135" cy="158" r="24" fill="#20a8d8"/>
+    <text x="30" y="292" font-family="Segoe UI, Arial" font-size="18" fill="#1b2733">menor tiempo</text>
+    <text x="30" y="318" font-family="Segoe UI, Arial" font-size="18" fill="#1b2733">mayor Emf</text>
+  </g>
+  <g transform="translate(340 90)">
+    <rect width="220" height="320" rx="8" fill="#eef8fb" stroke="#c7e5ef"/>
+    <text x="24" y="42" font-family="Segoe UI, Arial" font-size="24" font-weight="700" fill="#0f9f80">Tela</text>
+    <polygon points="25,235 190,120 205,150 42,265" fill="#8ed6c9"/>
+    <path d="M55 245 q12 -14 24 0 t24 0 t24 0 t24 0" fill="none" stroke="#0f6fb2" stroke-width="4"/>
+    <circle cx="125" cy="166" r="24" fill="#f28c28"/>
+    <text x="30" y="292" font-family="Segoe UI, Arial" font-size="18" fill="#1b2733">tiempo intermedio</text>
+    <text x="30" y="318" font-family="Segoe UI, Arial" font-size="18" fill="#1b2733">perdida moderada</text>
+  </g>
+  <g transform="translate(610 90)">
+    <rect width="220" height="320" rx="8" fill="#eef8fb" stroke="#c7e5ef"/>
+    <text x="24" y="42" font-family="Segoe UI, Arial" font-size="24" font-weight="700" fill="#0f9f80">Lija</text>
+    <polygon points="25,235 190,120 205,150 42,265" fill="#c5a06b"/>
+    <g fill="#7b5a35">
+      <circle cx="80" cy="220" r="4"/><circle cx="118" cy="195" r="4"/><circle cx="150" cy="170" r="4"/><circle cx="180" cy="150" r="4"/>
+    </g>
+    <circle cx="112" cy="176" r="24" fill="#0f6fb2"/>
+    <text x="30" y="292" font-family="Segoe UI, Arial" font-size="18" fill="#1b2733">mayor tiempo</text>
+    <text x="30" y="318" font-family="Segoe UI, Arial" font-size="18" fill="#1b2733">menor Emf</text>
+  </g>
+  <text x="78" y="465" font-family="Segoe UI, Arial" font-size="22" fill="#5d6b78">Mayor rugosidad: aumenta el rozamiento y parte de la energia mecanica se transforma.</text>
+</svg>
