@@ -222,6 +222,15 @@ h3 {
   width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: zoom-in;
+}
+
+.hero-image:hover,
+.diagram img:hover,
+.sheet-box img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 18px 44px rgba(15, 111, 178, 0.24);
 }
 
 .hero-image {
@@ -229,6 +238,10 @@ h3 {
   border: 1px solid var(--line);
   aspect-ratio: 16 / 10;
   object-fit: cover;
+}
+
+.diagram {
+  overflow: hidden;
 }
 
 .question-card {
@@ -301,6 +314,7 @@ h3 {
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
+  position: relative;
 }
 
 figcaption {
@@ -556,19 +570,310 @@ code {
   }
 }
 
+/* ── Botón modo oscuro ── */
+.theme-toggle {
+  position: fixed;
+  top: 14px;
+  left: 20px;
+  z-index: 20;
+  padding: 12px 18px;
+  color: #ffffff;
+  background: #1b2733;
+  border: 1px solid #3a5068;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+/* ── Modo oscuro ── */
+[data-theme="dark"] {
+  --blue: #5ab4ee;
+  --cyan: #5ccfef;
+  --green: #3dd9b0;
+  --teal: #3dd9c8;
+  --orange: #ffaa4d;
+  --ink: #e2eaf2;
+  --muted: #8fafc5;
+  --line: #243447;
+  --soft: #162230;
+  --soft-green: #112620;
+  --paper: #111e2a;
+}
+
+[data-theme="dark"] body {
+  background:
+    linear-gradient(rgba(90, 180, 238, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 180, 238, 0.04) 1px, transparent 1px),
+    linear-gradient(180deg, #0d1520 0%, #111e2a 42%, #0f1a25 100%);
+  background-size: 24px 24px, 24px 24px, auto;
+  color: var(--ink);
+  transition: background 0.3s, color 0.3s;
+}
+
+[data-theme="dark"] section {
+  background: var(--paper);
+  border-color: var(--line);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+[data-theme="dark"] h1 { color: #e8f2fa; }
+
+[data-theme="dark"] .eyebrow { color: #c4934a; }
+
+[data-theme="dark"] .subtitle { color: #9fc4de; }
+
+[data-theme="dark"] .cover {
+  background:
+    linear-gradient(rgba(255, 170, 77, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 180, 238, 0.06) 1px, transparent 1px),
+    linear-gradient(135deg, #0d1520 0%, #141f2e 100%);
+  background-size: 26px 26px, 26px 26px, auto;
+}
+
+[data-theme="dark"] .cover-panel {
+  background: rgba(22, 34, 50, 0.95);
+  border-color: #2a3f52;
+}
+
+[data-theme="dark"] .learning-card {
+  background: rgba(22, 45, 38, 0.92);
+  border-color: #1f4a3c;
+}
+
+[data-theme="dark"] .metric-row div {
+  background: #1a2a3a;
+  border-color: #2a3f52;
+}
+
+[data-theme="dark"] .metric-row strong { color: var(--ink); }
+
+[data-theme="dark"] .key-idea { color: #9fc4de; }
+
+[data-theme="dark"] .fill-box { background: rgba(22, 34, 50, 0.92); }
+
+[data-theme="dark"] .question-card {
+  background: var(--soft);
+  color: #7cc4e8;
+}
+
+[data-theme="dark"] .concept-card {
+  background: var(--paper);
+  border-color: var(--line);
+}
+
+[data-theme="dark"] .guidance-card {
+  background: #141e2a;
+  border-color: var(--line);
+}
+
+[data-theme="dark"] .warning {
+  background: #2a1f0e;
+}
+
+[data-theme="dark"] .important {
+  background: var(--soft-green);
+}
+
+[data-theme="dark"] .diagram {
+  background: #121e28;
+  border-color: var(--line);
+}
+
+[data-theme="dark"] .steps p {
+  background: var(--soft);
+  border-color: var(--line);
+}
+
+[data-theme="dark"] .writing-lines {
+  background: #121e28;
+  border-color: var(--line);
+}
+
+[data-theme="dark"] table { background: var(--paper); }
+
+[data-theme="dark"] th {
+  background: #1a3448;
+  color: #7cc4e8;
+}
+
+[data-theme="dark"] td { color: var(--ink); }
+
+[data-theme="dark"] .sheet-box {
+  background: var(--soft-green);
+  border-color: #1f4a3c;
+}
+
+[data-theme="dark"] code {
+  background: #1a2a3a;
+  color: #7cc4e8;
+}
+
+[data-theme="dark"] .formula-panel,
+[data-theme="dark"] .formula-grid > div {
+  background: #121e28;
+  border-color: var(--line);
+}
+
+[data-theme="dark"] .prompt-list p { background: #141e2a; }
+
+[data-theme="dark"] .print-button {
+  background: #2a3a4a;
+  border-color: #3a5068;
+}
+
+[data-theme="dark"] .theme-toggle {
+  background: #e2eaf2;
+  color: #111e2a;
+  border-color: #9fc4de;
+}
+
 @media print {
-  body {
-    background: white;
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  .no-print {
-    display: none;
+  .no-print { display: none; }
+
+  /* Neutralizar dark mode: forzar todos los fondos y textos a tema claro */
+  body,
+  [data-theme="dark"] body {
+    background: white !important;
+    color: #1b2733 !important;
   }
 
-  section {
-    page-break-inside: avoid;
+  section,
+  [data-theme="dark"] section {
+    background: #ffffff !important;
+    border-color: #cfd8dc !important;
     box-shadow: none;
-    border-color: #cfd8dc;
+    page-break-inside: avoid;
+  }
+
+  [data-theme="dark"] h1 { color: #161616 !important; }
+  [data-theme="dark"] h2 { color: #0f6fb2 !important; border-bottom-color: #20a8d8 !important; }
+  [data-theme="dark"] h3 { color: #0f9f80 !important; }
+  [data-theme="dark"] .eyebrow { color: #8a5b18 !important; }
+  [data-theme="dark"] .subtitle { color: #28445f !important; }
+
+  .cover,
+  [data-theme="dark"] .cover {
+    min-height: auto;
+    background: linear-gradient(135deg, #fff8f0 0%, #f5f9fd 100%) !important;
+  }
+
+  .cover-panel,
+  [data-theme="dark"] .cover-panel {
+    background: #ffffff !important;
+    border-color: #e3dbca !important;
+  }
+
+  .learning-card,
+  [data-theme="dark"] .learning-card {
+    background: #edf9f4 !important;
+    border-color: #bfe8db !important;
+  }
+
+  .metric-row div,
+  [data-theme="dark"] .metric-row div {
+    background: #fffdf7 !important;
+    border-color: #e3dbca !important;
+  }
+
+  [data-theme="dark"] .metric-row strong { color: #111111 !important; }
+  [data-theme="dark"] .key-idea { color: #28445f !important; }
+
+  .fill-box,
+  [data-theme="dark"] .fill-box {
+    background: #ffffff !important;
+  }
+
+  .question-card,
+  [data-theme="dark"] .question-card {
+    background: #eef8fb !important;
+    color: #0c4d78 !important;
+  }
+
+  .concept-card,
+  [data-theme="dark"] .concept-card {
+    background: #ffffff !important;
+    border-color: #d9e7ef !important;
+  }
+
+  .guidance-card,
+  [data-theme="dark"] .guidance-card {
+    background: #f8fcfd !important;
+    border-color: #d9e7ef !important;
+  }
+
+  .warning,
+  [data-theme="dark"] .warning {
+    background: #fff7ea !important;
+  }
+
+  .important,
+  [data-theme="dark"] .important {
+    background: #edf9f4 !important;
+  }
+
+  .diagram,
+  [data-theme="dark"] .diagram {
+    background: #f9fcfd !important;
+    border-color: #d9e7ef !important;
+  }
+
+  .steps p,
+  [data-theme="dark"] .steps p {
+    background: #eef8fb !important;
+    border-color: #d9e7ef !important;
+  }
+
+  .writing-lines,
+  [data-theme="dark"] .writing-lines {
+    background: #fbfdff !important;
+    border-color: #d9e7ef !important;
+  }
+
+  table,
+  [data-theme="dark"] table { background: #ffffff !important; font-size: 11px; }
+
+  th,
+  [data-theme="dark"] th {
+    background: #dff3f8 !important;
+    color: #0c4d78 !important;
+  }
+
+  td,
+  [data-theme="dark"] td { color: #1b2733 !important; }
+
+  .sheet-box,
+  [data-theme="dark"] .sheet-box {
+    background: #edf9f4 !important;
+    border-color: #bfe8db !important;
+  }
+
+  code,
+  [data-theme="dark"] code {
+    background: #edf3f7 !important;
+    color: #1b2733 !important;
+  }
+
+  .formula-panel,
+  .formula-grid > div,
+  [data-theme="dark"] .formula-panel,
+  [data-theme="dark"] .formula-grid > div {
+    background: #f3fbff !important;
+    border-color: #d9e7ef !important;
+  }
+
+  .prompt-list p,
+  [data-theme="dark"] .prompt-list p {
+    background: #f8fcfd !important;
   }
 
   .document {
@@ -576,11 +881,21 @@ code {
     padding: 0;
   }
 
-  .cover {
-    min-height: auto;
+  img {
+    display: block !important;
+    max-width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    transition: none !important;
+    cursor: default !important;
   }
 
-  table {
-    font-size: 11px;
+  .sheet-box {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  figure.diagram {
+    overflow: visible !important;
   }
 }

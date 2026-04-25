@@ -14,6 +14,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
+  <button class="theme-toggle no-print" id="themeToggle">Modo oscuro</button>
   <button class="print-button no-print" onclick="window.print()">Descargar / imprimir PDF</button>
   <main class="document">
     <section class="cover">
@@ -125,7 +126,7 @@
         </article>
       </div>
       <figure class="diagram">
-        <img src="assets/diagrama-realista-plano-inclinado.webp" alt="Diagrama realista del plano inclinado con mediciones de h, d y theta" loading="lazy" decoding="async">
+        <img src="assets/diagrama-realista-plano-inclinado.webp" alt="Diagrama realista del plano inclinado con mediciones de h, d y theta">
         <figcaption>Diagrama de referencia realista: altura \(h\), distancia \(d\), ángulo \(\theta\), punto inicial y punto final.</figcaption>
       </figure>
       <div class="concept-grid">
@@ -198,7 +199,7 @@
         <p><strong>Paso 7:</strong> Repetir el experimento cambiando la superficie por lija, tela u otro material.</p>
       </div>
       <figure class="diagram">
-        <img src="assets/superficies-realistas-rozamiento.webp" alt="Comparación realista de superficies de rozamiento" loading="lazy" decoding="async">
+        <img src="assets/superficies-realistas-rozamiento.webp" alt="Comparación realista de superficies de rozamiento">
         <figcaption>Infografía: al aumentar la rugosidad, suele aumentar el tiempo de caída y disminuir la energía mecánica final.</figcaption>
       </figure>
     </section>
@@ -272,7 +273,7 @@
             <li>Porcentaje de pérdida: <code>=(L2/J2)*100</code></li>
           </ul>
         </div>
-        <img src="assets/mockup-planilla-realista.webp" alt="Mockup realista de planilla de datos experimentales" loading="lazy" decoding="async">
+        <img src="assets/mockup-planilla-realista.webp" alt="Mockup realista de planilla de datos experimentales">
       </div>
     </section>
 
@@ -290,7 +291,7 @@
         <strong>Regla de trabajo:</strong> un dato atípico puede descartarse solo si hay una razón experimental clara y se deja registrado en observaciones. No se elimina porque “arruina el promedio”, sino porque no representa una medición válida del mismo procedimiento.
       </div>
       <figure class="diagram">
-        <img src="assets/dato-atipico-mediciones.webp" alt="Infografía sobre dato atípico en mediciones de tiempo" loading="lazy" decoding="async">
+        <img src="assets/dato-atipico-mediciones.webp" alt="Infografía sobre dato atípico en mediciones de tiempo">
         <figcaption>Ejemplo: \(1{,}1\,s\), \(1{,}2\,s\) y \(1{,}3\,s\) son coherentes entre sí; \(4{,}0\,s\) debe revisarse y puede descartarse si se justifica.</figcaption>
       </figure>
       <div class="warning">
@@ -319,7 +320,7 @@
         <p><strong>Imagen 5: Boceto de Google Docs.</strong> “Imagen tipo boceto de Google Docs mostrando una guía de trabajo práctico de física sobre plano inclinado. Debe verse una carátula, una sección de marco teórico, una tabla de datos, fórmulas destacadas y un diagrama del plano inclinado. Estilo documento académico moderno, colores azul y verde, texto en castellano.”</p>
       </div>
       <figure class="diagram">
-        <img src="assets/mockup-documento-realista.webp" alt="Mockup realista de documento académico experimental" loading="lazy" decoding="async">
+        <img src="assets/mockup-documento-realista.webp" alt="Mockup realista de documento académico experimental">
       </figure>
     </section>
 
@@ -416,5 +417,43 @@
       <p>Desde el navegador: <strong>Ctrl + P → Guardar como PDF</strong>. El modo impresión oculta esta nota y conserva secciones completas siempre que sea posible.</p>
     </section>
   </main>
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const root = document.documentElement;
+    const saved = localStorage.getItem('theme');
+    if (saved === 'dark') { root.setAttribute('data-theme', 'dark'); toggle.textContent = 'Modo claro'; }
+    toggle.addEventListener('click', () => {
+      const isDark = root.getAttribute('data-theme') === 'dark';
+      root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      toggle.textContent = isDark ? 'Modo oscuro' : 'Modo claro';
+      localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    });
+
+    // Forzar carga de imágenes lazy antes de imprimir
+    function loadAllImages() {
+      return Promise.all(
+        Array.from(document.querySelectorAll('img')).map(img => {
+          img.loading = 'eager';
+          if (img.complete) return Promise.resolve();
+          return new Promise(resolve => {
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', resolve, { once: true });
+          });
+        })
+      );
+    }
+
+    window.addEventListener('beforeprint', () => { loadAllImages(); });
+
+    // Para navegadores que usan window.print() vía botón
+    const printBtn = document.querySelector('.print-button');
+    if (printBtn) {
+      printBtn.addEventListener('click', async e => {
+        e.preventDefault();
+        await loadAllImages();
+        window.print();
+      });
+    }
+  </script>
 </body>
 </html>
