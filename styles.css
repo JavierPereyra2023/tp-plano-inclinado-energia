@@ -479,6 +479,14 @@ code {
     font-size: 13px;
   }
 
+  .theme-toggle {
+    top: auto;
+    right: 12px;
+    bottom: 58px;
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
   .cover-layout,
   .concept-grid,
   .guidance-grid,
@@ -573,8 +581,8 @@ code {
 /* ── Botón modo oscuro ── */
 .theme-toggle {
   position: fixed;
-  top: 14px;
-  left: 20px;
+  top: 60px;
+  right: 20px;
   z-index: 20;
   padding: 12px 18px;
   color: #ffffff;
